@@ -4,7 +4,7 @@ module.exports = {
     script: 'app.js',
 
     // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
-    args: 'one two',
+    args: 'baymax',
     instances: 1,
     autorestart: true,
     watch: false,
@@ -19,11 +19,11 @@ module.exports = {
 
   deploy : {
     production : {
-      user : 'node',
-      host : '212.83.163.1',
+      user : 'root',
+      host : '101.133.143.142',
       ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
+      repo : 'git@github.com:ShadowWalker627/koa2-learn.git',
+      path : '/var/baymax/production',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
   }
