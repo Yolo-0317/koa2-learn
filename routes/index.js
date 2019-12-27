@@ -44,7 +44,7 @@ router.get('/sdWXService', async (ctx, next) => {
 })
 
 router.get('/wxTokenService', async (ctx, next) => {
-  const rb = ctx.request.body
+  const rb = ctx.request.query;
 
   const { signature, timestamp, nonce, echostr } = rb;
   ctx.body = echostr;
