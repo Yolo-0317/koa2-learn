@@ -23,12 +23,15 @@ router.post('/string', async (ctx, next) => {
       return res.data.access_token;
     });
   const accessToken = await getAccessToken();
+  // console.log(accessToken)
   const getSignature = async () => axios.get(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${accessToken}&type=jsapi`)
     .then((res) => {
       const rb = ctx.request.body
 
       const { noncestr, timestamp, url } = rb;
-      const string1 = `jsapi_ticket=${res.data.ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`;
+      const jsapi_ticket = res.data.ticket;
+      console.log(jsapi_ticket)
+      const string1 = `jsapi_ticket=${jsapi_ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`;
       return {noncestr, timestamp, url, signature: getSha1(string1)};
     })
   const { noncestr, timestamp, url, signature } = await getSignature();
@@ -36,12 +39,6 @@ router.post('/string', async (ctx, next) => {
   ctx.response.body = JSON.stringify({ signature, noncestr, timestamp, url, appid })
 })
 
-router.get('/sdWXService', async (ctx, next) => {
-  const url = `https://yyhd.hazq.com/thinkive/servlet/json?funcNo=100037&url=http://10.20.102.182`;
-  const getWxConfigInfo  = async () => request(url);
-  const wxConfigInfo = await getWxConfigInfo();
-  ctx.body = wxConfigInfo;
-})
 
 router.get('/wxTokenService', async (ctx, next) => {
   const rb = ctx.request.query;
