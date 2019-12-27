@@ -1,0 +1,26 @@
+{
+    "restartable":"rs",
+    "ignore":[""],
+    "verbose": true, 
+    "execMap":{
+        "":"node",
+        "test": "gulp test"
+    },
+    "events":{
+      "start":"gulp", 
+      "crash":"",  
+      "exit":"", 
+      "restart":"gulp"
+    },
+    "ext": "js json",
+    "watch":[
+      "./dbs/**",
+      "./routes/**",
+      "./public/**",
+      "./db.js"
+    ],
+    "env":{
+      "NODE_ENV":"DEV" 
+    },
+    "legacy-watch":false
+  }
